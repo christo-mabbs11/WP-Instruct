@@ -15,3 +15,11 @@ require_once( INST__PLUGIN_DIR . 'meta-box/meta-box-class/my-meta-box-class.php'
 
 // Add in pliugin main functionality
 require_once( INST__PLUGIN_DIR . 'inc/instructions.php' );
+
+// Add in the scripts for hopscotch
+function my_enqueue($hook) {
+    wp_enqueue_script('hopscotch-js', plugin_dir_url(__FILE__) . '/hopscotch/hopscotch.min.js');
+    wp_register_style( 'hopscotch_admin_css', plugin_dir_url(__FILE__) . '/hopscotch/hopscotch.min.css', false, '1.0.0' );
+    wp_enqueue_style( 'hopscotch_admin_css' );
+}
+add_action('admin_enqueue_scripts', 'my_enqueue');
