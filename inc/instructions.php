@@ -59,11 +59,11 @@
     }
     add_action( 'init', 'inst_post_type_gen', 0 );
 
-    /////////////////////
-    // Custom meta box //
-    /////////////////////
+    ////////////////////////////////////
+    // Custom meta box on instructors //
+    ////////////////////////////////////
 
-    function get_admin_menus() {
+    function custom_meta_box_info() {
 
         if (is_admin()){
         
@@ -170,4 +170,15 @@
       }
 
     }
-    add_action( 'admin_menu', 'get_admin_menus' );
+    add_action( 'admin_init', 'custom_meta_box_info', 100 );
+
+    //////////////////////////////////////////////////////
+    // Add the instructors info on the admin page inner //
+    //////////////////////////////////////////////////////
+
+    function custom_add_inst_onto_page () {
+
+        
+
+    }
+    add_action( 'admin_init', 'custom_add_inst_onto_page', 101 );
