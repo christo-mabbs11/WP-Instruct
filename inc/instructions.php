@@ -178,7 +178,60 @@
 
     function custom_add_inst_onto_page () {
 
+        // Get the page current url
+        $page_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+
+        // Get the part after wp-admin
+        $page_url_after_wpadmin = explode( "wp-admin/", $page_url )[1];
         
+        // Loop through all queries on the instructions
+        $args = array(
+            'post_type' => array( 'instruction' ),
+        );
+
+        // The Query
+        $query = new WP_Query( $args );
+
+        // The Loop
+        $current_inst = NULL;
+        if ( $query->have_posts() ) {
+            while ( $query->have_posts() ) {
+                $query->the_post();
+
+                // Get the post meta
+                $temp_post_meta = get_post_meta( get_the_id() );
+
+                // If this matches the page
+                if ( $page_url_after_wpadmin == $temp_post_meta["ba_target_page"][0] ) {
+
+                    $current_inst = $temp_post_meta["ba_re_"];
+                    break;
+
+                }
+
+            }
+        }
+
+        // Restore original Post Data
+        wp_reset_postdata();
+
+        // If we did not find any instructions for this page
+        if ( is_null($current_inst) ) {
+            return;
+        }
+
+        // Break this down into something js will understand
+        $current_inst = json_encode(unserialize($current_inst[0]));
+
+        // Save the variable for JS
+        wp_enqueue_script('instruct_js', plugins_url() . '/wp-instruct/assets/instruct.js', array(), false, true);
+        $translation_array = array(
+            'instruct_string' => $current_inst,
+        );
+        wp_localize_script( 'instruct_js', 'instruct_object', $translation_array );
+
+        // Enqueued script with localized data.
+        wp_enqueue_script( 'instruct_js' );
 
     }
     add_action( 'admin_init', 'custom_add_inst_onto_page', 101 );
