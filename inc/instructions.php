@@ -122,7 +122,10 @@
                         // Remove content in the span tags
                         $tags = array("span");
                         $temp = preg_replace('#<(' . implode( '|', $tags) . ')(?:[^>]+)?>.*?</\1>#s', '', $sub_page[0]);
-                        $temp = $temp_page . " - " . $temp;
+                        if ( $temp == "Add New" ) {
+                            $temp = "Inner/Add New";
+                        }
+                        $temp = $temp_page . " > " . $temp;
                         
                         // Save the value
                         $be_pages[$sub_page[2]] = $temp;
@@ -134,8 +137,6 @@
             }
 
         }
-
-        // print_r($be_pages);
 
         // Select field
         $my_meta->addSelect( $prefix.'target_page',
@@ -150,8 +151,8 @@
          * To Create a reapeater Block first create an array of fields
          * use the same functions as above but add true as a last param
          */
-        $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id',array('name'=> 'Instruction','desc'=> "Give this instruction a title."),true);
-        $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id',array('name'=> 'jQuery element selector'),true);
+        $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id_name',array('name'=> 'Instruction','desc'=> "Give this instruction a title."),true);
+        $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id_selector',array('name'=> 'jQuery element selector','desc'=> "Leve blank for a general pop-up."),true);
         $repeater_fields[] = $my_meta->addTextarea($prefix.'re_textarea_field_id',array('name'=> 'Instruction'),true);
         /*
          * Then just add the fields to the repeater block
