@@ -160,7 +160,7 @@
         //repeater block
         $my_meta->addRepeaterBlock($prefix.'re_',array(
           'inline'   => true, 
-          'name'     => 'This is a Repeater Block',
+          'name'     => 'Instructions List',
           'fields'   => $repeater_fields, 
           'sortable' => true
         ));
