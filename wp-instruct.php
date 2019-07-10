@@ -10,5 +10,8 @@
 
 define( 'INST__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
+// Add meta box functionality
+require_once( INST__PLUGIN_DIR . 'meta-box/meta-box-class/my-meta-box-class.php' );
+
 // Add in pliugin main functionality
 require_once( INST__PLUGIN_DIR . 'inc/instructions.php' );

@@ -1,6 +1,9 @@
 <?php
 
-    // Register Custom Post Type
+    ///////////////////////////////
+    // Register Custom Post Type //
+    ///////////////////////////////
+
     function inst_post_type_gen() {
 
         $labels = array(
@@ -36,8 +39,7 @@
             'label'                 => __( 'Instruction', 'text_domain' ),
             'description'           => __( 'Post Type Description', 'text_domain' ),
             'labels'                => $labels,
-            'supports'              => array( 'title', 'editor' ),
-            'taxonomies'            => array( 'category', 'post_tag' ),
+            'supports'              => array( 'title' ),
             'hierarchical'          => false,
             'public'                => true,
             'show_ui'               => true,
@@ -50,8 +52,121 @@
             'exclude_from_search'   => false,
             'publicly_queryable'    => true,
             'capability_type'       => 'page',
+            'menu_icon'             => 'dashicons-welcome-learn-more',
         );
         register_post_type( 'instruction', $args );
 
     }
     add_action( 'init', 'inst_post_type_gen', 0 );
+
+    /////////////////////
+    // Custom meta box //
+    /////////////////////
+
+    function get_admin_menus() {
+
+        if (is_admin()){
+        
+        /* 
+         * prefix of meta keys, optional
+         * use underscore (_) at the beginning to make keys hidden, for example $prefix = '_ba_';
+         *  you also can make prefix empty to disable it
+         * 
+         */
+        $prefix = 'ba_';
+        
+        /* 
+         * configure your meta box
+         */
+        $config = array(
+          'id'             => 'demo_meta_box',          // meta box id, unique per meta box
+          'title'          => 'Page Instructions',          // meta box title
+          'pages'          => array('instruction'),      // post types, accept custom post types as well, default is array('post'); optional
+          'context'        => 'normal',            // where the meta box appear: normal (default), advanced, side; optional
+          'priority'       => 'high',            // order of meta box: high (default), low; optional
+          'fields'         => array(),            // list of meta fields (can be added by field arrays)
+          'local_images'   => false,          // Use local or hosted images (meta box images for add/remove)
+          'use_with_theme' => false          //change path if used with theme set to true, false for a plugin or anything else for a custom path(default false).
+        );
+        
+        /*
+         * Initiate your meta box
+         */
+        $my_meta =  new AT_Meta_Box($config);
+        
+        /*
+         * Add fields to your meta box
+         */
+
+        // Create the page selector array
+        global $menu, $submenu, $pagenow;
+
+        // Build out menu of pages
+        $be_pages = [];
+        foreach ( $menu as $page ) {    // Top levels pages
+
+            // Ignore empty page names
+            if ( $page[0] && $page[2] && $page[0] != "" && $page[2] != "" ) {
+
+                // Remove content in the span tags
+                $tags = array("span");
+                $temp_page = preg_replace('#<(' . implode( '|', $tags) . ')(?:[^>]+)?>.*?</\1>#s', '', $page[0]);
+
+                // Sub level pages
+                $temp_sub = $submenu[$page[2]];
+                foreach ( $temp_sub as $sub_page ) {    // Top levels pages
+
+                    // Ignore empty page names
+                    if ( $sub_page[0] && $sub_page[2] && $sub_page[0] != "" && $sub_page[2] != "" ) {
+
+                        // Remove content in the span tags
+                        $tags = array("span");
+                        $temp = preg_replace('#<(' . implode( '|', $tags) . ')(?:[^>]+)?>.*?</\1>#s', '', $sub_page[0]);
+                        $temp = $temp_page . " - " . $temp;
+                        
+                        // Save the value
+                        $be_pages[$sub_page[2]] = $temp;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        // print_r($be_pages);
+
+        // Select field
+        $my_meta->addSelect( $prefix.'target_page',
+            
+            $be_pages,
+
+            array('name'=> 'Instruction Page', 'std'=> array($be_pages[0]))
+
+        );
+
+        /*
+         * To Create a reapeater Block first create an array of fields
+         * use the same functions as above but add true as a last param
+         */
+        $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id',array('name'=> 'Instruction','desc'=> "Give this instruction a title."),true);
+        $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id',array('name'=> 'jQuery element selector'),true);
+        $repeater_fields[] = $my_meta->addTextarea($prefix.'re_textarea_field_id',array('name'=> 'Instruction'),true);
+        /*
+         * Then just add the fields to the repeater block
+         */
+        //repeater block
+        $my_meta->addRepeaterBlock($prefix.'re_',array(
+          'inline'   => true, 
+          'name'     => 'This is a Repeater Block',
+          'fields'   => $repeater_fields, 
+          'sortable' => true
+        ));
+        
+        //Finish Meta Box Declaration 
+        $my_meta->Finish();
+      }
+
+    }
+    add_action( 'admin_menu', 'get_admin_menus' );
