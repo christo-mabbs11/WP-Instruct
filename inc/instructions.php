@@ -221,7 +221,9 @@
         // The Loop
         $current_inst = NULL;
         if ( $query->have_posts() ) {
+
             while ( $query->have_posts() ) {
+                
                 $query->the_post();
 
                 // Get the post meta
@@ -259,7 +261,7 @@
                 } else {
 
                     // If this is a new posts page
-                    if ( $pagenow == "post-new.php" ) {
+                    if ( $pagenow == "post-new.php" && strpos($temp_post_meta["ba_target_page"][0], 'post-new.php') !== false ) {
 
                         // Find the post type of the page
                         $current_add_post = "";
@@ -293,6 +295,24 @@
 
                         }
 
+                    
+                    } else if ( $pagenow == "edit-tags.php" && strpos($temp_post_meta["ba_target_page"][0], 'edit-tags.php') !== false ) {
+
+                        // Find the taxonomy type of the page
+                        $current_add_tax = "";
+                        if ( isset($_GET['taxonomy']) ) { 
+                            $current_add_tax = $_GET['taxonomy'];
+                        }
+
+                        $tax_being_added = explode( "edit-tags.php?taxonomy=", $temp_post_meta["ba_target_page"][0] )[1];
+                        
+
+                        // // If this matches the page
+                        if ( $tax_being_added == $current_add_tax ) {
+                            $current_inst = $temp_post_meta["ba_re_"];
+                            break;
+                        }
+                    
                     } else {
 
                         // If this matches the page
