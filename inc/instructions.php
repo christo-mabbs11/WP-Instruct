@@ -310,7 +310,7 @@
 
                         // // Find the post type being added
                         $post_listing_being_checked = "";
-                        if ( $temp_post_meta["ba_target_page"][0] == "edit.php.php" ) {  // if this is the standard post
+                        if ( $temp_post_meta["ba_target_page"][0] == "edit.php" ) {  // if this is the standard post
 
                             $post_listing_being_checked = "post";
 
