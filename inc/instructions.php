@@ -156,10 +156,11 @@
         $repeater_fields[] = $my_meta->addTextarea($prefix.'re_textarea_field_id',array('name'=> 'Instruction'),true);
         
         // Select field for placement
-        // $repeater_fields[] = $my_meta->addSelect( $prefix.'inst_placement',
-        //     array('top'=> 'Top', 'bottom'=> 'bottom', 'right'=> 'right', 'left'=> 'left'),
-        //     array('name'=> 'Instruction Page', 'std'=> array($be_pages[0]))
-        // );
+        $repeater_fields[] = $my_meta->addSelect( $prefix.'re_text_field_id_placement',
+            array('top'=> 'Top', 'bottom'=> 'Bottom', 'right'=> 'Right', 'left'=> 'Left'),
+            array('name'=> 'Placement', 'std'=> "top"),
+            true
+        );
 
         /*
          * Then just add the fields to the repeater block

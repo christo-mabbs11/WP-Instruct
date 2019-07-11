@@ -15,8 +15,10 @@ jQuery(function ($) {
       title: element.ba_re_text_field_id_name,
       content: element.ba_re_textarea_field_id,
       target: document.querySelector(element.ba_re_text_field_id_selector),
-      placement: "bottom"
+      placement: element.ba_re_text_field_id_placement
     };
+
+    console.log( temp );
 
     // Add this to the new array
     steps.push(temp);
