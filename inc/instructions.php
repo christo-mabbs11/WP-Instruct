@@ -192,6 +192,15 @@
         // Get the part after wp-admin
         $page_url_after_wpadmin = explode( "wp-admin/", $page_url )[1];
         
+        // Deternine if this is a post inner page (special circumstance)
+        $is_posts_page = false;
+        $post_id;
+        if (strpos($page_url_after_wpadmin, 'post.php') !== false) {
+            $is_posts_page = true;
+            $post_id = explode( "post=", $page_url_after_wpadmin )[1];
+            $post_id = explode( "&", $post_id )[0];
+        }
+        
         // Loop through all queries on the instructions
         $args = array(
             'post_type' => array( 'instruction' ),
@@ -209,11 +218,25 @@
                 // Get the post meta
                 $temp_post_meta = get_post_meta( get_the_id() );
 
-                // If this matches the page
-                if ( $page_url_after_wpadmin == $temp_post_meta["ba_target_page"][0] ) {
+                // if this is a posts page (special prividledges
+                if ( $is_posts_page ) {
 
-                    $current_inst = $temp_post_meta["ba_re_"];
-                    break;
+                    // get the post type
+                    echo $post_id;
+                    die();
+
+                    // if this is ewaul to the post type being queried
+
+                // if thisis any other page
+                } else {
+
+                    // If this matches the page
+                    if ( $page_url_after_wpadmin == $temp_post_meta["ba_target_page"][0] ) {
+
+                        $current_inst = $temp_post_meta["ba_re_"];
+                        break;
+
+                    }
 
                 }
 
