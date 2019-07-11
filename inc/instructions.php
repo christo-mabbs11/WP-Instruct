@@ -202,14 +202,14 @@
         // Get rthe current page we're on
         global $pagenow;
 
-        // Deternine if this is a post inner page (special circumstance)
+        // Determine if this is a post inner page (special circumstance)
         $is_posts_page = false;
         $post_type;
         if ( 'post.php' === $pagenow && isset($_GET['post']) ) {
             $is_posts_page = true;
             $post_type = get_post_type( $_GET['post'] );
         }
-        
+
         // Loop through all queries on the instructions
         $args = array(
             'post_type' => array( 'instruction' ),
@@ -232,9 +232,10 @@
 
                     // if this is a new posts page
                     if (strpos($temp_post_meta["ba_target_page"][0], 'post-new.php') !== false) {
-
+                        
                         // Find the type of post being added
                         $post_being_added = "";
+
                         // if this is the standard post
                         if ( $temp_post_meta["ba_target_page"][0] == "post-new.php" ) {
                             
@@ -257,11 +258,50 @@
                 // if thisis any other page
                 } else {
 
-                    // If this matches the page
-                    if ( $pagenow == $temp_post_meta["ba_target_page"][0] ) {
+                    // If this is a new posts page
+                    if ( $pagenow == "post-new.php" ) {
 
-                        $current_inst = $temp_post_meta["ba_re_"];
-                        break;
+                        // Find the post type of the page
+                        $current_add_post = "";
+                        if ( isset($_GET['post_type']) ) {  // if this is the standard post
+
+                            $current_add_post = $_GET['post_type'];
+
+                        } else {
+
+                            $current_add_post = "post";
+
+                        }
+
+                        // Find the post type being added
+                        $post_being_added = "";
+                        if ( $temp_post_meta["ba_target_page"][0] == "post-new.php" ) {  // if this is the standard post
+
+                            $post_being_added = "post";
+
+                        } else {
+
+                            $post_being_added = explode( "post-new.php?post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+
+                        }
+
+                        // If this matches the page
+                        if ( $current_add_post == $post_being_added ) {
+
+                            $current_inst = $temp_post_meta["ba_re_"];
+                            break;
+
+                        }
+
+                    } else {
+
+                        // If this matches the page
+                        if ( $pagenow == $temp_post_meta["ba_target_page"][0] ) {
+
+                            $current_inst = $temp_post_meta["ba_re_"];
+                            break;
+
+                        }
 
                     }
 
