@@ -194,11 +194,12 @@
         
         // Deternine if this is a post inner page (special circumstance)
         $is_posts_page = false;
-        $post_id;
+        $post_type;
         if (strpos($page_url_after_wpadmin, 'post.php') !== false) {
             $is_posts_page = true;
             $post_id = explode( "post=", $page_url_after_wpadmin )[1];
             $post_id = explode( "&", $post_id )[0];
+            $post_type = get_post_type( $post_id );
         }
         
         // Loop through all queries on the instructions
@@ -218,14 +219,24 @@
                 // Get the post meta
                 $temp_post_meta = get_post_meta( get_the_id() );
 
-                // if this is a posts page (special prividledges
+                // if this is a posts page
                 if ( $is_posts_page ) {
 
                     // get the post type
-                    echo $post_id;
-                    die();
+                    // echo $post_type;
+                    // echo $temp_post_meta["ba_target_page"][0];
+                    // die();
+                    // if ( $temp_post_meta["ba_target_page"][0] =  ) { }
 
-                    // if this is ewaul to the post type being queried
+                    // if this is a new posts page
+                    if (strpos($temp_post_meta["ba_target_page"][0], 'post-new.php') !== false) {
+
+                        // Find the type of post being added
+                        // $temp_post_meta["ba_target_page"][0]
+
+                        // Find the specific post
+
+                    }
 
                 // if thisis any other page
                 } else {
