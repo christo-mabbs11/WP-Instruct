@@ -114,7 +114,7 @@
 
                     // Sub level pages
                     $temp_sub = $submenu[$page[2]];
-                    foreach ( $temp_sub as $sub_page ) {    // Top levels pages
+                    foreach ( $temp_sub as $sub_page ) {    // Bottom levels pages
 
                         // Ignore empty page names
                         if ( $sub_page[0] && $sub_page[2] && $sub_page[0] != "" && $sub_page[2] != "" ) {
@@ -122,9 +122,13 @@
                             // Remove content in the span tags
                             $tags = array("span");
                             $temp = preg_replace('#<(' . implode( '|', $tags) . ')(?:[^>]+)?>.*?</\1>#s', '', $sub_page[0]);
+                            
+                            // These pages need to cover multiple cases
                             if ( $temp == "Add New" ) {
                                 $temp = "Inner/Add New";
                             }
+
+                            // Add some extra nice-ness
                             $temp = $temp_page . " > " . $temp;
                             
                             // Save the value
@@ -132,6 +136,14 @@
 
                         }
 
+                    }
+
+                    // If this page is not set in it's children
+                    if ( !isset( $be_pages[$page[2]] ) ) {
+
+                        // Add top level menu item
+                        $be_pages[$page[2]] = $temp_page;
+                        
                     }
 
                 }
