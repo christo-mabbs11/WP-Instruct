@@ -1,19 +1,2 @@
-#instruct-guide-button {
-    
-    position: fixed;
-    bottom: 50px;
-    right: 20px;
-    z-index: 999999;
-
-    width: 100px;
-    height: 50px;
-
-    text-align: center;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 1rem;
-
-}
+#instruct-guide-button{position:fixed;bottom:50px;right:20px;z-index:999999;width:90px;height:40px;text-align:center;display:flex;align-items:center;justify-content:center;font-size:.96rem}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluc3RydWN0LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsdUJBRUksY0FBZSxDQUNmLFdBQVksQ0FDWixVQUFXLENBQ1gsY0FBZSxDQUVmLFVBQVcsQ0FDWCxXQUFZLENBRVosaUJBQWtCLENBRWxCLFlBQWEsQ0FDYixrQkFBbUIsQ0FDbkIsc0JBQXVCLENBRXZCLGdCQUFrQiIsImZpbGUiOiJpbnN0cnVjdC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjaW5zdHJ1Y3QtZ3VpZGUtYnV0dG9uIHtcbiAgICBcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgYm90dG9tOiA1MHB4O1xuICAgIHJpZ2h0OiAyMHB4O1xuICAgIHotaW5kZXg6IDk5OTk5OTtcblxuICAgIHdpZHRoOiA5MHB4O1xuICAgIGhlaWdodDogNDBweDtcblxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcblxuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcblxuICAgIGZvbnQtc2l6ZTogMC45NnJlbTtcblxufSJdfQ== */
