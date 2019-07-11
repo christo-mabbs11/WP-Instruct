@@ -119,6 +119,11 @@
                         // Ignore empty page names
                         if ( $sub_page[0] && $sub_page[2] && $sub_page[0] != "" && $sub_page[2] != "" ) {
 
+                            // Do not add the customise page
+                            if ( $page[2] == "themes.php" && strpos($sub_page[2], 'customize.php') !== false ) {
+                                continue;
+                            }
+
                             // Remove content in the span tags
                             $tags = array("span");
                             $temp = preg_replace('#<(' . implode( '|', $tags) . ')(?:[^>]+)?>.*?</\1>#s', '', $sub_page[0]);
