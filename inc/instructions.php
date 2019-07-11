@@ -9,8 +9,8 @@
         $labels = array(
             'name'                  => _x( 'Instructions', 'Post Type General Name', 'text_domain' ),
             'singular_name'         => _x( 'Instruction', 'Post Type Singular Name', 'text_domain' ),
-            'menu_name'             => __( 'Instruction Types', 'text_domain' ),
-            'name_admin_bar'        => __( 'Instruction Type', 'text_domain' ),
+            'menu_name'             => __( 'Instructions', 'text_domain' ),
+            'name_admin_bar'        => __( 'Instruction', 'text_domain' ),
             'archives'              => __( 'Item Archives', 'text_domain' ),
             'attributes'            => __( 'Item Attributes', 'text_domain' ),
             'parent_item_colon'     => __( 'Parent Instruction:', 'text_domain' ),
@@ -154,6 +154,13 @@
         $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id_name',array('name'=> 'Instruction','desc'=> "Give this instruction a title."),true);
         $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id_selector',array('name'=> 'jQuery element selector','desc'=> "Leve blank for a general pop-up."),true);
         $repeater_fields[] = $my_meta->addTextarea($prefix.'re_textarea_field_id',array('name'=> 'Instruction'),true);
+        
+        // Select field for placement
+        // $repeater_fields[] = $my_meta->addSelect( $prefix.'inst_placement',
+        //     array('top'=> 'Top', 'bottom'=> 'bottom', 'right'=> 'right', 'left'=> 'left'),
+        //     array('name'=> 'Instruction Page', 'std'=> array($be_pages[0]))
+        // );
+
         /*
          * Then just add the fields to the repeater block
          */
