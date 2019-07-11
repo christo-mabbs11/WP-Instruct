@@ -124,4 +124,30 @@ div#instruction_meta_box {
 
     }
 
+    table.form-table {
+
+        & > tbody {
+            
+            & > tr {
+
+                & > td.at-field {
+            
+                    & > div.at-label {
+
+                        margin-bottom: 1rem;
+            
+                        label {
+                            font-weight: 600;
+                        }
+
+                    }
+
+                }
+            
+            }
+
+        }
+
+    }
+
 }
