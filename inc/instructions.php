@@ -343,6 +343,11 @@
                             $current_inst = $temp_post_meta["ba_re_"];
                             break;
                         }
+
+                    } else if ( $pagenow == "profile.php" && $temp_post_meta["ba_target_page"][0] == "user-new.php" ) { // New user page, also shows under normal profiles
+
+                        $current_inst = $temp_post_meta["ba_re_"];
+                        break;
                     
                     } else { // If this is a any other page
 
