@@ -18,8 +18,6 @@ jQuery(function ($) {
       placement: element.ba_re_text_field_id_placement
     };
 
-    console.log( temp );
-
     // Add this to the new array
     steps.push(temp);
   });

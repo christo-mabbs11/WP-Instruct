@@ -43,7 +43,7 @@ var _metabox_fields = {
 
     // repater Field
     $(".at-re-toggle").live('click', function() {
-      $(this).parent().find('.repeater-table').toggle('slow');
+      $(this).parent().find('.repeater-table').fadeToggle('slow');
     });
     // repeater sortable
     $('.repeater-sortable').sortable({

@@ -79,7 +79,7 @@
          * configure your meta box
          */
         $config = array(
-          'id'             => 'demo_meta_box',          // meta box id, unique per meta box
+          'id'             => 'instruction_meta_box',          // meta box id, unique per meta box
           'title'          => 'Page Instructions',          // meta box title
           'pages'          => array('instruction'),      // post types, accept custom post types as well, default is array('post'); optional
           'context'        => 'normal',            // where the meta box appear: normal (default), advanced, side; optional

@@ -386,7 +386,7 @@ class AT_Meta_Box {
            $mmm =  isset($me[$field['fields'][0]['id']])? $me[$field['fields'][0]['id']]: "";
            if ( in_array( $field['fields'][0]['type'], array('image','file') ) )
             $mmm = $c +1 ;
-           echo '<div class="at-repater-block">'.$mmm.'<br/><table class="repeater-table" style="display: none;">';
+           echo '<div class="at-repater-block"><h3>'.$mmm.'</h3><div class="grow"></div><br/><table class="repeater-table" style="display: none;">';
            if ($field['inline']){
              echo '<tr class="at-inline" VALIGN="top">';
            }
