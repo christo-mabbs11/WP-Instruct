@@ -152,7 +152,7 @@
          * use the same functions as above but add true as a last param
          */
         $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id_name',array('name'=> 'Instruction','desc'=> "Give this instruction a title."),true);
-        $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id_selector',array('name'=> 'jQuery element selector','desc'=> "Leve blank for a general pop-up."),true);
+        $repeater_fields[] = $my_meta->addText($prefix.'re_text_field_id_selector',array('name'=> 'CSS element selector','desc'=> "Leve blank for a general pop-up."),true);
         $repeater_fields[] = $my_meta->addTextarea($prefix.'re_textarea_field_id',array('name'=> 'Instruction'),true);
         
         // Select field for placement
