@@ -222,19 +222,27 @@
                 // if this is a posts page
                 if ( $is_posts_page ) {
 
-                    // get the post type
-                    // echo $post_type;
-                    // echo $temp_post_meta["ba_target_page"][0];
-                    // die();
-                    // if ( $temp_post_meta["ba_target_page"][0] =  ) { }
-
                     // if this is a new posts page
                     if (strpos($temp_post_meta["ba_target_page"][0], 'post-new.php') !== false) {
 
                         // Find the type of post being added
-                        // $temp_post_meta["ba_target_page"][0]
+                        $post_being_added = "";
+                        // if this is the standard post
+                        if ( $temp_post_meta["ba_target_page"][0] == "post-new.php" ) {
+                            
+                            $post_being_added = "post";
+
+                        } else {
+
+                            $post_being_added = explode( "post-new.php?post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+
+                        }
 
                         // Find the specific post
+                        if ( $post_being_added == $post_type ) {
+                            $current_inst = $temp_post_meta["ba_re_"];
+                            break;
+                        }
 
                     }
 
