@@ -4,7 +4,7 @@
 * Plugin URI: https://www.yourwebsiteurl.com/
 * Description: Create easy to follow instructions for your users in the back-end.
 * Version: 1.0
-* Author: Chirstop Mabbs
+* Author: Chirsto Mabbs
 * Author URI: https://github.com/christo-mabbs11
 **/
 
