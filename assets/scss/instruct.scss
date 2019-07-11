@@ -1,7 +1,7 @@
 #instruct-guide-button {
     
     position: fixed;
-    bottom: 50px;
+    bottom: 40px;
     right: 20px;
     z-index: 999999;
 
@@ -54,13 +54,23 @@ div#instruction_meta_box {
 
                     td {
                         
+                        padding-left: 15px;
+                        padding-right: 15px;
                         padding-top: 0;
                         padding-bottom: 0;
                         vertical-align: top;
 
+                        &:first-of-type {
+                            padding-left: 0;
+                        }
+
+                        &:last-of-type {
+                            padding-right: 0;
+                        }
+
                         & > * {
                             display: block;
-                            width: auto;
+                            width: 100%;
                         }
 
                     }
@@ -115,13 +125,19 @@ div#instruction_meta_box {
 
         .at-label {
             font-weight: bold;
-            font-size: 0.8rem;
+            label {
+                font-size: 0.85rem!important;
+            }
         }
 
-        $element_width: 100px;
-
         input[type="text"] {
-            width: $element_width;
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            resize: none;
         }
 
     }
