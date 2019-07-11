@@ -1,0 +1,19 @@
+#instruct-guide-button {
+    
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    z-index: 999999;
+
+    width: 100px;
+    height: 50px;
+
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1rem;
+
+}

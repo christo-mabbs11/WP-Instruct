@@ -23,6 +23,10 @@ function my_enqueue($hook) {
     wp_register_style( 'hopscotch_admin_css', plugin_dir_url(__FILE__) . '/hopscotch/hopscotch.css', false, '1.0.0' );
     wp_enqueue_style( 'hopscotch_admin_css' );
 
+    // Instruct css
+    wp_register_style( 'instruct_admin_css', plugin_dir_url(__FILE__) . '/assets/instruct.css', false, '1.0.0' );
+    wp_enqueue_style( 'instruct_admin_css' );
+
     
 }
 add_action('admin_enqueue_scripts', 'my_enqueue');
