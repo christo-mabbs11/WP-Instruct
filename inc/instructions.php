@@ -260,8 +260,7 @@
                 // if thisis any other page
                 } else {
 
-                    // If this is a new posts page
-                    if ( $pagenow == "post-new.php" && strpos($temp_post_meta["ba_target_page"][0], 'post-new.php') !== false ) {
+                    if ( $pagenow == "post-new.php" && strpos($temp_post_meta["ba_target_page"][0], 'post-new.php') !== false ) { // If this is a new posts page
 
                         // Find the post type of the page
                         $current_add_post = "";
@@ -295,8 +294,40 @@
 
                         }
 
+                    } else if ( $pagenow == "edit.php" && strpos($temp_post_meta["ba_target_page"][0], 'edit.php') !== false ) { // If this is a post listings page
+
+                        // Find the post type of the page
+                        $current_post_listing = "";
+                        if ( isset($_GET['post_type']) ) {  // if this is the standard post
+
+                            $current_post_listing = $_GET['post_type'];
+
+                        } else {
+
+                            $current_post_listing = "post";
+
+                        }
+
+                        // // Find the post type being added
+                        $post_listing_being_checked = "";
+                        if ( $temp_post_meta["ba_target_page"][0] == "edit.php.php" ) {  // if this is the standard post
+
+                            $post_listing_being_checked = "post";
+
+                        } else {
+
+                            $post_listing_being_checked = explode( "edit.php?post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+
+                        }
+
+                        // If this matches the page
+                        if ( $current_post_listing == $post_listing_being_checked ) {
+                            $current_inst = $temp_post_meta["ba_re_"];
+                            break;
+                        }
+
                     
-                    } else if ( $pagenow == "edit-tags.php" && strpos($temp_post_meta["ba_target_page"][0], 'edit-tags.php') !== false ) {
+                    } else if ( $pagenow == "edit-tags.php" && strpos($temp_post_meta["ba_target_page"][0], 'edit-tags.php') !== false ) { // If this is a new tax page
 
                         // Find the taxonomy type of the page
                         $current_add_tax = "";
@@ -313,7 +344,7 @@
                             break;
                         }
                     
-                    } else {
+                    } else { // If this is a any other page
 
                         // If this matches the page
                         if ( $pagenow == $temp_post_meta["ba_target_page"][0] ) {
