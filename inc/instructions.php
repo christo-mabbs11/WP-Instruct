@@ -41,20 +41,20 @@
             'labels'                => $labels,
             'supports'              => array( 'title' ),
             'hierarchical'          => false,
-            'public'                => true,
+            'public'                => false,
             'show_ui'               => true,
             'show_in_menu'          => true,
             'menu_position'         => 5,
             'show_in_admin_bar'     => true,
-            'show_in_nav_menus'     => true,
+            'show_in_nav_menus'     => false,
             'can_export'            => true,
-            'has_archive'           => true,
-            'exclude_from_search'   => false,
-            'publicly_queryable'    => true,
+            'has_archive'           => false,
+            'exclude_from_search'   => true,
+            'publicly_queryable'    => false,
             'capability_type'       => 'page',
             'menu_icon'             => 'dashicons-welcome-learn-more',
         );
-        register_post_type( 'instruction', $args );
+        register_post_type( 'cwm_instruction', $args );
 
     }
     add_action( 'init', 'inst_post_type_gen', 0 );
@@ -81,7 +81,7 @@
             $config = array(
                 'id'             => 'instruction_meta_box',          // meta box id, unique per meta box
                 'title'          => 'Page Instructions',          // meta box title
-                'pages'          => array('instruction'),      // post types, accept custom post types as well, default is array('post'); optional
+                'pages'          => array('cwm_instruction'),      // post types, accept custom post types as well, default is array('post'); optional
                 'context'        => 'normal',            // where the meta box appear: normal (default), advanced, side; optional
                 'priority'       => 'high',            // order of meta box: high (default), low; optional
                 'fields'         => array(),            // list of meta fields (can be added by field arrays)
@@ -212,7 +212,7 @@
 
         // Loop through all queries on the instructions
         $args = array(
-            'post_type' => array( 'instruction' ),
+            'post_type' => array( 'cwm_instruction' ),
         );
 
         // The Query
