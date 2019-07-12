@@ -278,7 +278,8 @@
 
                         } else {
 
-                            $post_being_added = explode( "post-new.php?post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+                            $post_being_added = explode( "post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+                            $post_being_added = explode( "&", $post_being_added )[0];
 
                         }
 
@@ -315,7 +316,8 @@
 
                         } else {
 
-                            $post_being_added = explode( "post-new.php?post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+                            $post_being_added = explode( "post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+                            $post_being_added = explode( "&", $post_being_added )[0];
 
                         }
 
@@ -349,7 +351,8 @@
 
                         } else {
 
-                            $post_listing_being_checked = explode( "edit.php?post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+                            $post_listing_being_checked = explode( "post_type=", $temp_post_meta["ba_target_page"][0] )[1];
+                            $post_listing_being_checked = explode( "&", $post_listing_being_checked )[0];
 
                         }
 
@@ -368,10 +371,10 @@
                             $current_add_tax = $_GET['taxonomy'];
                         }
 
-                        $tax_being_added = explode( "edit-tags.php?taxonomy=", $temp_post_meta["ba_target_page"][0] )[1];
-                        
+                        $tax_being_added = explode( "taxonomy=", $temp_post_meta["ba_target_page"][0] )[1];
+                        $tax_being_added = explode( "&", $tax_being_added )[0];
 
-                        // // If this matches the page
+                        // If this matches the page
                         if ( $tax_being_added == $current_add_tax ) {
                             $current_inst = $temp_post_meta["ba_re_"];
                             break;
