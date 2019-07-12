@@ -53,11 +53,39 @@
             'publicly_queryable'    => false,
             'capability_type'       => 'page',
             'menu_icon'             => 'dashicons-welcome-learn-more',
+            'capability_type'     => array('cwm_instruction','cwm_instructions'),
+            'map_meta_cap'        => true,
         );
         register_post_type( 'cwm_instruction', $args );
 
     }
     add_action( 'init', 'inst_post_type_gen', 0 );
+
+    add_action('admin_init','cwm_inst_add_role_caps',999);
+    function cwm_inst_add_role_caps() {
+    
+        // Add the roles you'd like to administer the custom post types
+        $roles = array('administrator');
+        
+        // Loop through each role and assign capabilities
+        foreach($roles as $the_role) { 
+        
+            $role = get_role($the_role);
+        
+                    $role->add_cap( 'read' );
+                    $role->add_cap( 'read_cwm_instruction');
+                    $role->add_cap( 'read_private_cwm_instructions' );
+                    $role->add_cap( 'edit_cwm_instruction' );
+                    $role->add_cap( 'edit_cwm_instructions' );
+                    $role->add_cap( 'edit_others_cwm_instructions' );
+                    $role->add_cap( 'edit_published_cwm_instructions' );
+                    $role->add_cap( 'publish_cwm_instructions' );
+                    $role->add_cap( 'delete_others_cwm_instructions' );
+                    $role->add_cap( 'delete_private_cwm_instructions' );
+                    $role->add_cap( 'delete_published_cwm_instructions' );
+        
+        }
+    }
 
     ////////////////////////////////////
     // Custom meta box on instructors //
