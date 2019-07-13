@@ -1,7 +1,7 @@
 <?php
 /**
 * Plugin Name: WP Instruct
-* Plugin URI: https://www.yourwebsiteurl.com/
+* Plugin URI: https://github.com/christo-mabbs11/WP-Instruct
 * Description: Create easy to follow instructions for your users in the back-end.
 * Version: 1.0
 * Author: Chirsto Mabbs
