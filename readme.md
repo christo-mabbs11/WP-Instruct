@@ -8,8 +8,8 @@ Download zip file and upload to Wordpress.
 
 ## Fatures
 
-Target Pages
+Target pages from the menu
 
-Add Guides
+Add Guides onto those pages easily
 
 Supports Wordpress import and export
