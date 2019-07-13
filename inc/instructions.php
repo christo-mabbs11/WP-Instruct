@@ -123,8 +123,8 @@
             $my_meta =  new AT_Meta_Box($config);
             
             /*
-                * Add fields to your meta box
-                */
+            * Add fields to your meta box
+            */
 
             // Create the page selector array
             global $menu, $submenu;
