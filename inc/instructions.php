@@ -243,23 +243,21 @@
 
     function custom_add_inst_onto_page () {
 
-        // Get rthe current page we're on
-        global $pagenow;
-
-        // Determine if this is a post inner page (special circumstance)
-        $is_posts_page = false;
-        $post_type;
-        if ( 'post.php' === $pagenow && isset($_GET['post']) ) {
-            $is_posts_page = true;
-            $post_type = get_post_type( $_GET['post'] );
+        // Get the full current url
+        $current_url = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+        
+        // Grab the compenents
+        $current_url_parse = parse_url($current_url);
+        $current_path = $current_url_parse["path"];
+        if ( strpos($page_link, 'wp-admin/') === false ) {
+            $current_path = explode( "wp-admin/", $current_path )[1];
         }
+        $current_queries = explode( "&", $current_url_parse["query"] );
 
-        // Loop through all queries on the instructions
+        // The Query
         $args = array(
             'post_type' => array( 'cwm_instruction' ),
         );
-
-        // The Query
         $query = new WP_Query( $args );
 
         // The Loop
@@ -273,138 +271,21 @@
                 // Get the post meta
                 $temp_post_meta = get_post_meta( get_the_id() );
 
-                // if this is a posts page
-                if ( $is_posts_page ) {
+                // Grab the compenents
+                $temp_url_parse = parse_url($temp_post_meta['ba_target_page'][0]);
+                $temp_path = $temp_url_parse["path"];
+                if ( strpos($page_link, 'wp-admin/') === false ) {
+                    $temp_path = explode( "wp-admin/", $temp_path )[1];
+                }
+                $temp_queries = explode( "&", $temp_url_parse["query"] );
 
-                    // if this is a new posts page
-                    if (strpos($temp_post_meta["ba_target_page"][0], 'post-new.php') !== false) {
-                        
-                        // Find the type of post being added
-                        $post_being_added = "";
+                // If the paths match
+                if ( $temp_path == $current_path ) {
 
-                        // if this is the standard post
-                        if ( $temp_post_meta["ba_target_page"][0] == "post-new.php" ) {
-                            
-                            $post_being_added = "post";
+                    // If all the queries of the temp url fit into the current one
+                    if ( !array_diff($current_queries, $temp_queries) ) {
 
-                        } else {
-
-                            $post_being_added = explode( "post_type=", $temp_post_meta["ba_target_page"][0] )[1];
-                            $post_being_added = explode( "&", $post_being_added )[0];
-
-                        }
-
-                        // Find the specific post
-                        if ( $post_being_added == $post_type ) {
-                            $current_inst = $temp_post_meta["ba_re_"];
-                            break;
-                        }
-
-                    }
-
-                // if thisis any other page
-                } else {
-
-                    if ( $pagenow == "post-new.php" && strpos($temp_post_meta["ba_target_page"][0], 'post-new.php') !== false ) { // If this is a new posts page
-
-                        // Find the post type of the page
-                        $current_add_post = "";
-                        if ( isset($_GET['post_type']) ) {  // if this is the standard post
-
-                            $current_add_post = $_GET['post_type'];
-
-                        } else {
-
-                            $current_add_post = "post";
-
-                        }
-
-                        // Find the post type being added
-                        $post_being_added = "";
-                        if ( $temp_post_meta["ba_target_page"][0] == "post-new.php" ) {  // if this is the standard post
-
-                            $post_being_added = "post";
-
-                        } else {
-
-                            $post_being_added = explode( "post_type=", $temp_post_meta["ba_target_page"][0] )[1];
-                            $post_being_added = explode( "&", $post_being_added )[0];
-
-                        }
-
-                        // If this matches the page
-                        if ( $current_add_post == $post_being_added ) {
-
-                            $current_inst = $temp_post_meta["ba_re_"];
-                            break;
-
-                        }
-
-                    } else if ( $pagenow == "edit.php" && strpos($temp_post_meta["ba_target_page"][0], 'edit.php') !== false ) { // If this is a post listings page
-
-                        // Find the post type of the page
-                        $current_post_listing = "";
-                        if ( isset($_GET['post_type']) ) {  // if this is the standard post
-
-                            $current_post_listing = $_GET['post_type'];
-
-                        } else {
-
-                            $current_post_listing = "post";
-
-                        }
-
-                        // // Find the post type being added
-                        $post_listing_being_checked = "";
-                        if ( $temp_post_meta["ba_target_page"][0] == "edit.php" ) {  // if this is the standard post
-
-                            $post_listing_being_checked = "post";
-
-                        } else {
-
-                            $post_listing_being_checked = explode( "post_type=", $temp_post_meta["ba_target_page"][0] )[1];
-                            $post_listing_being_checked = explode( "&", $post_listing_being_checked )[0];
-
-                        }
-
-                        // If this matches the page
-                        if ( $current_post_listing == $post_listing_being_checked ) {
-                            $current_inst = $temp_post_meta["ba_re_"];
-                            break;
-                        }
-
-                    
-                    } else if ( $pagenow == "edit-tags.php" && strpos($temp_post_meta["ba_target_page"][0], 'edit-tags.php') !== false ) { // If this is a new tax page
-
-                        // Find the taxonomy type of the page
-                        $current_add_tax = "";
-                        if ( isset($_GET['taxonomy']) ) { 
-                            $current_add_tax = $_GET['taxonomy'];
-                        }
-
-                        $tax_being_added = explode( "taxonomy=", $temp_post_meta["ba_target_page"][0] )[1];
-                        $tax_being_added = explode( "&", $tax_being_added )[0];
-
-                        // If this matches the page
-                        if ( $tax_being_added == $current_add_tax ) {
-                            $current_inst = $temp_post_meta["ba_re_"];
-                            break;
-                        }
-
-                    } else if ( $pagenow == "profile.php" && $temp_post_meta["ba_target_page"][0] == "user-new.php" ) { // New user page, also shows under normal profiles
-
-                        $current_inst = $temp_post_meta["ba_re_"];
-                        break;
-                    
-                    } else { // If this is a any other page
-
-                        // If this matches the page
-                        if ( $pagenow == $temp_post_meta["ba_target_page"][0] ) {
-
-                            $current_inst = $temp_post_meta["ba_re_"];
-                            break;
-
-                        }
+                        $current_inst = "okok";
 
                     }
 
