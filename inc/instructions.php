@@ -140,6 +140,11 @@
                     $tags = array("span");
                     $temp_page = preg_replace('#<(' . implode( '|', $tags) . ')(?:[^>]+)?>.*?</\1>#s', '', $page[0]);
 
+                    $page_link = $page[2];
+                    if ( strpos($page_link, '.php') === false ) {
+                        $page_link = "admin.php/";
+                    }
+
                     // Sub level pages
                     $temp_sub = $submenu[$page[2]];
                     foreach ( $temp_sub as $sub_page ) {    // Bottom levels pages
@@ -155,33 +160,38 @@
                             // Remove content in the span tags
                             $tags = array("span");
                             $temp = preg_replace('#<(' . implode( '|', $tags) . ')(?:[^>]+)?>.*?</\1>#s', '', $sub_page[0]);
-                            
-                            // These pages need to cover multiple cases
-                            if ( $temp == "Add New" ) {
-                                $temp = "Inner/Add New";
-                            }
 
                             // Add some extra nice-ness
                             $temp = $temp_page . " > " . $temp;
+
+                            $sub_link = $sub_page[2];
+                            if ( strpos($sub_link, '.php') === false ) {
+                                $sub_link = $page_link . "?page=" . $sub_link;
+                            }
                             
                             // Save the value
-                            $be_pages[$sub_page[2]] = $temp;
+                            $be_pages[$sub_link] = $temp;
 
                         }
 
                     }
 
-                    // If this page is not set in it's children
-                    if ( !isset( $be_pages[$page[2]] ) ) {
+                    // If this page is not set in it's children and this is not the default admin page
+                    if ( !isset( $be_pages[$page_link] ) && $page_link != "admin.php/" ) {
 
                         // Add top level menu item
-                        $be_pages[$page[2]] = $temp_page;
+                        $be_pages[$page_link] = $temp_page;
                         
                     }
 
                 }
 
             }
+
+            // print_r( $menu );
+            // print_r( $submenu );
+            // print_r( $be_pages );
+            // die();
 
             // Select field
             $my_meta->addSelect( $prefix.'target_page',
