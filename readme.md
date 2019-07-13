@@ -6,7 +6,7 @@ Create easy to follow instructions for your users in the back-end.
 
 Download zip file and upload to Wordpress.
 
-## Fatures
+## Features
 
 Target pages from the menu
 
