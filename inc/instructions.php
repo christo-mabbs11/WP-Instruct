@@ -249,10 +249,19 @@
         // Grab the compenents
         $current_url_parse = parse_url($current_url);
         $current_path = $current_url_parse["path"];
-        if ( strpos($page_link, 'wp-admin/') === false ) {
+        if ( strpos($current_path, 'wp-admin/') !== false ) {
             $current_path = explode( "wp-admin/", $current_path )[1];
         }
         $current_queries = explode( "&", $current_url_parse["query"] );
+
+        // Debug
+        // echo "current\n";
+        // print_r( $current_url_parse );
+        // echo "\n";
+        // print_r( $current_path );
+        // echo "\n";
+        // print_r( $current_queries );
+        // echo "\n";
 
         // The Query
         $args = array(
@@ -274,18 +283,29 @@
                 // Grab the compenents
                 $temp_url_parse = parse_url($temp_post_meta['ba_target_page'][0]);
                 $temp_path = $temp_url_parse["path"];
-                if ( strpos($page_link, 'wp-admin/') === false ) {
+                if ( strpos($page_link, 'wp-admin/') !== false ) {
                     $temp_path = explode( "wp-admin/", $temp_path )[1];
                 }
                 $temp_queries = explode( "&", $temp_url_parse["query"] );
 
+                // Debug
+                // echo "temp\n";
+                // print_r( $temp_url_parse );
+                // echo "\n";
+                // print_r( $temp_path );
+                // echo "\n";
+                // print_r( $temp_queries );
+                // echo "\n";
+
                 // If the paths match
                 if ( $temp_path == $current_path ) {
 
-                    // If all the queries of the temp url fit into the current one
+                    // If all the queries of the temp url fit into the current one (or there are no quries)
                     if ( !array_diff($current_queries, $temp_queries) ) {
 
-                        $current_inst = "okok";
+                        // We have found the page!!
+                        $current_inst = $temp_post_meta["ba_re_"];
+                        break;
 
                     }
 
@@ -293,6 +313,9 @@
 
             }
         }
+
+        // Debug
+        // die();
 
         // Restore original Post Data
         wp_reset_postdata();
